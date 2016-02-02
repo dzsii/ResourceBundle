@@ -25,7 +25,7 @@
     },
     "autoload" : {
         "psr-4" : {
-            "ThinkBig\\Bundle\\ResourceBundle\\" : "src/"
+            "ThinkBig\\Bundle\\ResourceBundle\\" : ""
         }
     },
     "repositories" : [{
