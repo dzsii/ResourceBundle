@@ -28,7 +28,6 @@
             "ThinkBig\\Bundle\\ResourceBundle\\" : "src/"
         }
     },
-    "target-dir" : "ThinkBig/Bundle/ResourceBundle",
     "repositories" : [{
     }],
     "extra" : {
