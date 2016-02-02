@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="thinkbig.resource.mapping_manager" class="ThinkBig\Bundle\ResourceBundle\Service\MappingManagerService">
+            <argument type="service" id="doctrine" />
+        </service>
+        <service id="file_listener" class="ThinkBig\Bundle\ResourceBundle\EventListener\FileListener">
+            <argument type="service" id="oneup_flysystem.mount_manager"/>
+            <tag name="doctrine.orm.entity_listener" />
+        </service>
+        <service id="thinkbig.resource.twig_extension" class="ThinkBig\Bundle\ResourceBundle\Twig\ShowImageExtension" public="false">
+            <argument type="service" id="router"/>
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

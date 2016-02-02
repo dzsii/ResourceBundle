@@ -1,0 +1,15 @@
+{% block file_resource_widget %}
+    {% spaceless %}
+        {{ block('collection_widget') }}
+
+        <div id='{{ form.vars.id }}_zone' class="dropzone">
+
+            <div class="dropzone-previews">
+            	<div class="dropzone-plus"><i class="glyphicon glyphicon-plus"></i></div>
+            </div>
+            <div class="dz-message"></div>
+
+        </div>
+
+    {% endspaceless %}
+{% endblock %}

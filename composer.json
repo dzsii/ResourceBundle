@@ -1,0 +1,36 @@
+{
+    "name" : "thinkbig/resource-bundle",
+    "description" : "Symfony2 form resource type",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "dzsii",
+        "email" : "gabor@thinkbig.hu"
+    }],
+    "keywords" : [
+        "entity transform bundle"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "repositories" : [{
+        "type" : "vcs",
+        "url" : "https://github.com/dzsii/EntityTransformBundle.git"
+    }],
+    "require" : {
+
+
+        "php": ">=5.4.0",
+
+        "thinkbig/entity-transform-bundle" : "dev-master"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "ThinkBig\\Bundle\\ResourceBundle\\" : "src/"
+        }
+    },
+    "target-dir" : "ThinkBig/Bundle/ResourceBundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+    }
+}
