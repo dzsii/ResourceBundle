@@ -74,7 +74,7 @@ class File
     /**
      * @var uid
      *
-     * @ORM\Column(name="guid", type="guid")
+     * @ORM\Column(name="guid", type="guid", length=60)
      */
     private $uid;
 
