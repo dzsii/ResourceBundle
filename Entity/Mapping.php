@@ -51,13 +51,13 @@ class Mapping
     private $File;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Vinviter\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="ThinkBig\Bundle\ResourceBundle\Model\UserInterface")
      **/
     private $Owner;
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Vinviter\UserBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="ThinkBig\Bundle\ResourceBundle\Model\UserInterface")
      * @ORM\JoinTable(name="mapping_favorites",
      *      joinColumns={@ORM\JoinColumn(name="mapping_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}

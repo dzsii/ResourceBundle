@@ -85,7 +85,7 @@ class File
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Vinviter\UserBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="ThinkBig\Bundle\ResourceBundle\Model\UserInterface")
      * @ORM\JoinTable(name="file_favorites",
      *      joinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
