@@ -3,6 +3,7 @@
 namespace ThinkBig\Bundle\ResourceBundle\Service;
 
 use ThinkBig\Bundle\ResourceBundle\Entity\Mapping;
+use Doctrine\Common\Util\ClassUtils;
 
 /**
 * 
@@ -23,7 +24,7 @@ class MappingManagerService
 
 		$mapping = new Mapping();
 
-		$mapping->setObjectClass(get_class($object));
+		$mapping->setObjectClass(ClassUtils::getClass($object));
 		$mapping->setObjectId($object->getId());
 		$mapping->setFile($resource);
 
@@ -41,7 +42,7 @@ class MappingManagerService
 
 	public function getResources($object, $mapping = null) {
 
-		$objectClass = get_class($object);
+		$objectClass = ClassUtils::getClass($object);
 		$objectId 	 = $object->getId();
 
 		$qb 		 = $this->em->createQueryBuilder();

@@ -5,7 +5,7 @@ namespace ThinkBig\Bundle\ResourceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Vinviter\UserBundle\Entity\User;
+use ThinkBig\Bundle\ResourceBundle\Model\UserInterface;
 
 /**
  * Mapping
@@ -193,7 +193,7 @@ class Mapping
      *
      * @return self
      */
-    public function setOwner(User $owner)
+    public function setOwner(UserInterface $owner)
     {
         $this->Owner = $owner;
 

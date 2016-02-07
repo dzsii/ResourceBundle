@@ -58,6 +58,7 @@ var ThinkbigUploader = (function () {
             uploadMultiple: false,
             parallelUploads: 100,
             maxFiles: options.maxFiles,
+            acceptedFiles: 'image/*',
             previewsContainer: element + ' .dropzone-previews',
             clickable: element + ' .dropzone-plus',
             //params: {  id: 123 },

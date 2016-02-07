@@ -6,18 +6,60 @@ namespace ThinkBig\Bundle\ResourceBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use ThinkBig\Bundle\ResourceBundle\Entity\File as FileEntity;
 use ThinkBig\Bundle\ResourceBundle\Form\Type\FileType as FileResourceType;
 
+use Intervention\Image\ImageManager;
+
 class DefaultController extends Controller
 {
+
     /**
-     * @Route("/dropzone/upload", name="dropzone_upload", options={"expose"=true})
+     * @Route("/img/{size}/{path}", name="show_image", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function showImage($size, $path) {
+
+        $resourceManager    = $this->get('thinkbig.resource.mapping_manager');
+        $filesystem         = $this->get('oneup_flysystem.mount_manager')->getFilesystem('uploads');
+
+        if ($filesystem->has(sprintf('%s', $path))) {
+
+            $manager = new ImageManager(array('driver' => 'imagick'));
+            $img = $manager->make($filesystem->read(sprintf('%s', $path)))->fit($size);
+            //$img = $manager->canvas(800, 600, '#ccc');
+
+            $jpg = (string) $img->encode('jpg', 100);
+
+            $response = new Response($jpg);
+
+            $d = $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_INLINE,
+                'img.jpg'
+            );
+
+            $response->headers->set('Content-Type', 'image/jpg');
+
+            $response->headers->set('Content-Disposition', $d);
+
+            return $response;
+
+        }
+
+        return new Response('Error opening image');
+
+    }
+
+
+    /**
+     * @Route("/resources/upload", name="dropzone_upload", options={"expose"=true})
      * @Template()
      */
     public function indexAction(Request $request)
@@ -48,7 +90,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/dropzone/uploader", name="dropzone_uploader", options={"expose"=true})
+     * @Route("/resources/uploader", name="dropzone_uploader", options={"expose"=true})
      * @Template()
      */
     public function uploaderAction(Request $request)
@@ -81,7 +123,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/dropzone/remove/{uid}", name="dropzone_remove", options={"expose"=true})
+     * @Route("/resources/remove/{uid}", name="dropzone_remove", options={"expose"=true})
      */
     public function removeAction($uid) {
 
