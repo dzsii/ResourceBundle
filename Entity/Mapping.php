@@ -13,7 +13,7 @@ use ThinkBig\Bundle\ResourceBundle\Model\UserInterface;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Mapping
+class Mapping 
 {
     /**
      * @var integer
