@@ -12,14 +12,14 @@ class FileType extends AbstractType
     {
         
         $resolver->setDefaults(array(
-            'type'      => 'entity_hidden', 
-            'allow_add' => true,
-            'allow_delete' => true,
-            'prototype' => true,
-            'mapped'    => false,
-            'label' => false,
-            'options' => array('label' => false, 'class' => 'ThinkBig\Bundle\ResourceBundle\Entity\File', 'field' => 'uid'),
-            'attr' => array('data-form-type' => 'file_resource')
+            'type'              => 'entity_hidden', 
+            'allow_add'         => true,
+            'allow_delete'      => true,
+            'prototype'         => true,
+            'mapped'            => false,
+            'label'             => false,
+            'options'           => array('label' => false, 'class' => 'ThinkBig\Bundle\ResourceBundle\Entity\File', 'field' => 'uid'),
+            'attr'              => array('data-form-type' => 'file_resource')
         ));
 
     }
