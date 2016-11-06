@@ -20,6 +20,12 @@
 
 
         "php": ">=5.4.0",
+        
+        
+        "friendsofsymfony/jsrouting-bundle": "^1.5",
+        
+        "oneup/flysystem-bundle": "@stable",
+        "intervention/image": "~2.0",
 
         "thinkbig/entity-transform-bundle" : "dev-master"
     },
