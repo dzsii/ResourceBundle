@@ -22,11 +22,13 @@ class MappingManagerService
 
 	public function addResource($object, $resource, $context = null) {
 
-		$mapping = new Mapping();
+		$mapping 	= new Mapping();
+		
+		$img 		= $this->em->getRepository('ThinkBigResourceBundle:File')->findOneBy(array('uid' => $resource));
 
 		$mapping->setObjectClass(ClassUtils::getClass($object));
 		$mapping->setObjectId($object->getId());
-		$mapping->setFile($resource);
+		$mapping->setFile(img);
 
 		if ($context) {
 
