@@ -4,6 +4,7 @@ namespace ThinkBig\Bundle\ResourceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FileType extends AbstractType
 {
@@ -25,7 +26,7 @@ class FileType extends AbstractType
 
     public function getParent()
     {
-        return 'collection';
+        return CollectionType::class;
     }
 
     public function getName()
