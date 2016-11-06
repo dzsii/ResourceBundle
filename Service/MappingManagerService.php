@@ -28,7 +28,7 @@ class MappingManagerService
 
 		$mapping->setObjectClass(ClassUtils::getClass($object));
 		$mapping->setObjectId($object->getId());
-		$mapping->setFile(img);
+		$mapping->setFile($img);
 
 		if ($context) {
 
