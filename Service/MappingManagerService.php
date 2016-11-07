@@ -24,11 +24,9 @@ class MappingManagerService
 
 		$mapping 	= new Mapping();
 		
-		$img 		= $this->em->getRepository('ThinkBigResourceBundle:File')->findOneBy(array('uid' => $resource));
-
 		$mapping->setObjectClass(ClassUtils::getClass($object));
 		$mapping->setObjectId($object->getId());
-		$mapping->setFile($img);
+		$mapping->setFile($resource);
 
 		if ($context) {
 
@@ -51,7 +49,7 @@ class MappingManagerService
 
 		$qb->select('f')->from('ThinkBigResourceBundle:File', 'f');
 
-		$qb->innerJoin('f.Mappings', 'm', 'WITH', "m.objectId = :id");
+		$qb->innerJoin('f.Mappings', 'm', 'WITH', "m.objectId = :id AND m.objectClass = :class");
 
 		if ($mapping) {
 
@@ -61,17 +59,16 @@ class MappingManagerService
 
 		$qb->orderBy('f.id', 'DESC');
 
-		//$qb->setParameter('class', $objectClass);
+		$qb->setParameter('class', $objectClass);
 		$qb->setParameter('id', $objectId);
 
 		return $qb->getQuery()->getResult();
 
 	}
 
-	public function getLatestResource($object, $mapping = null, $default = 'profile') {
+	public function getLatestResource($object, $mapping = null) {
 
 		$resources = $this->getResources($object, $mapping);
-		$objectId  = $object->getId();
 
 		if ($resources) {
 
@@ -84,7 +81,7 @@ class MappingManagerService
 
 			$qb->select('f')->from('ThinkBigResourceBundle:File', 'f');
 
-			$qb->innerJoin('f.Mappings', 'm', 'WITH', "m.objectId = :id");
+			$qb->innerJoin('f.Mappings', 'm', 'WITH', "m.objectId = :id AND m.objectClass = :class");
 			
 			if ($mapping) {
 
@@ -92,7 +89,8 @@ class MappingManagerService
 
 			}
 			
-			$qb->setParameter('id', $objectId);
+			$qb->setParameter('id', $object->getId());
+			$qb->setParameter('class', ClassUtils::getClass($object));
 
 			$qb->orderBy('f.id', 'ASC');
 			$qb->setMaxResults(1);
