@@ -33,7 +33,13 @@ class DefaultController extends Controller
         if ($filesystem->has(sprintf('%s', $path))) {
 
             $manager = new ImageManager(array('driver' => 'imagick'));
-            $img = $manager->make($filesystem->read(sprintf('%s', $path)))->fit($size);
+            $img = $manager->make($filesystem->read(sprintf('%s', $path)));
+
+            if ($size != 'orig') {
+
+                $img->fit($size);
+            
+            }
             //$img = $manager->canvas(800, 600, '#ccc');
 
             $jpg = (string) $img->encode('jpg', 100);
