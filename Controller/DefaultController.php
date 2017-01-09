@@ -22,7 +22,7 @@ class DefaultController extends Controller
 {
 
     /**
-     * @Route("/img/{size}/{path}", name="show_image", options={"expose"=true})
+     * @Route("/img/{size}/{path}", name="show_image", requirements={"size" = "\d+"}, options={"expose"=true})
      * @Method("GET")
      */
     public function showImage($size, $path) {
@@ -37,7 +37,7 @@ class DefaultController extends Controller
 
             if ($size != 'orig') {
 
-                $img->fit($size);
+                $img->fit($size, $size);
             
             }
             //$img = $manager->canvas(800, 600, '#ccc');
@@ -63,6 +63,73 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/img/{method}/{dimension}/{path}", name="show2_image", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function show2Action($path, $method, $dimension) {
+
+        $resourceManager    = $this->get('thinkbig.resource.mapping_manager');
+        $filesystem         = $this->get('oneup_flysystem.mount_manager')->getFilesystem('uploads');
+
+        if ($filesystem->has(sprintf('%s', $path))) {
+
+            $manager = new ImageManager(array('driver' => 'imagick'));
+            $img = $manager->make($filesystem->read(sprintf('%s', $path)));
+
+            if (strpos($dimension, ':') === false) {
+
+                $width  = $dimension;
+                $height = $dimension;
+
+            }
+            else {
+
+                list($width, $height) = explode(':', $dimension);
+
+            }
+
+            switch (true) {
+
+                case $method == 'fill':
+                    
+                    $img->fit($width, $height);
+                    
+                    break;
+                case $method == 'widen':
+                case ($img->width()/$img->height() > $width/$height && $method == 'fit'):
+                    
+                    $img->widen($width);
+
+                    break;
+                case $method == 'heighten':
+                case ($img->width()/$img->height() <= $width/$height && $method == 'fit'):
+                    
+                    $img->heighten($height);
+                    
+                    break;
+            }
+
+            $jpg = (string) $img->encode('jpg', 100);
+
+            $response = new Response($jpg);
+
+            $d = $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_INLINE,
+                'img.jpg'
+            );
+
+            $response->headers->set('Content-Type', 'image/jpg');
+
+            $response->headers->set('Content-Disposition', $d);
+
+            return $response;
+
+        }
+
+        return new Response('Error opening image');
+
+    }
 
     /**
      * @Route("/resources/upload", name="dropzone_upload", options={"expose"=true})
